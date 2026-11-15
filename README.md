@@ -2,6 +2,17 @@
 
 **macOS keyboard shortcuts for [Omarchy](https://omarchy.org).**
 
+Omarchy is an opinionated setup, and much of that opinion lives on the
+keyboard. Out of the box, the Super key runs the desktop: Super+W closes a
+window, Super+T floats it, Super+F goes full screen, Super+1…9 switch
+workspaces, Super+arrows move focus between tiled windows. It is fast once
+learned, but it is its own system.
+
+**This module changes that a lot.** It gives the Super key back to apps and
+text, the way Cmd works on a Mac, and moves Omarchy's window management out of
+the way. The result feels much more like a traditional Mac. If you like
+Omarchy's keyboard-driven defaults as they are, this is probably not for you.
+
 Coming from a Mac? This makes the Cmd key work the way your fingers expect:
 Cmd+T opens a tab, Cmd+Z undoes, Cmd+Left jumps to the start of the line,
 Option+Left moves by word, Shift+Cmd+4 takes a screenshot. Omarchy's own
