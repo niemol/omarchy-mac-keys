@@ -131,6 +131,7 @@ dofile(os.getenv("HOME") .. "/.local/share/omarchy-mac-keys/mac-keys.lua")({
   app_switcher = "auto",    -- Cmd+Tab via Omarchy App Switcher: true, false or "auto"
   desktop_arrows = true,    -- Ctrl+Left/Right switch desktops
   word_navigation = true,   -- Option+Left/Right/Backspace work by word
+  option_symbols = true,    -- left Option types Mac characters (Option+2 = @ ...)
   screenshots = true,       -- Shift+Cmd+3/4/5
   alt_tab_classes = { "^firefox$", "^librewolf$", "^zen$" }, -- apps that pick tabs with Alt+N
 })
@@ -143,8 +144,11 @@ characters sit where they do on a Mac. On the Finnish/Swedish Mac layout, for
 example, @ is Option+2 and the brackets are Option+8 / 9.
 
 In the Linux Mac layouts only the **right** Option key types special
-characters. The left one stays Alt, which keeps Option+arrows and Omarchy's
-Super+Alt shortcuts working.
+characters, and many Mac keyboards have no right Option. With `option_symbols`
+(on by default) the **left** Option types them too: Option+key and
+Shift+Option+key are sent to the app as the layout's third / fourth level.
+Left Option otherwise stays Alt, so Option+arrows and Omarchy's Super+Alt
+shortcuts keep working. Apps no longer see plain Alt+letter, as on a Mac.
 
 ## Differences from macOS
 

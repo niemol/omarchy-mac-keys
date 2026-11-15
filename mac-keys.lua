@@ -19,6 +19,10 @@
 --                     when the plugin is installed.
 --   desktop_arrows    Ctrl+Left / Ctrl+Right switch desktops, as on a Mac. Default true.
 --   word_navigation   Option(Alt)+Left/Right/Backspace move or delete by word. Default true.
+--   option_symbols    Left Option types the same characters as on a Mac (Option+2 = @,
+--                     Option+8 = [ and so on, from the layout's third level). Left Option
+--                     stays Alt for everything else, so Option+arrows and Omarchy's
+--                     Super+Alt shortcuts keep working. Default true.
 --   screenshots       Shift+Cmd+3 / 4 / 5 take screenshots. Default true.
 --   alt_tab_classes   Lua patterns of window classes that switch tabs with Alt+1..9
 --                     instead of Ctrl+1..9. Default { "^firefox$", "^librewolf$", "^zen$" }.
@@ -212,6 +216,26 @@ return function(opts)
     bind("ALT + SHIFT + LEFT", "Select word left", send("CTRL SHIFT", "Left"), REPEAT)
     bind("ALT + SHIFT + RIGHT", "Select word right", send("CTRL SHIFT", "Right"), REPEAT)
     bind("ALT + BACKSPACE", "Delete word", send("CTRL", "BackSpace"), REPEAT)
+  end
+
+  -- ⌥ / ⇧⌥ + a character key types that key's Option character, as on a Mac.
+  -- XKB only makes the right Alt key Option (level 3) in the Mac layouts, and
+  -- Mac keyboards often have no right Option at all. Making left Alt level 3
+  -- in XKB would take Alt away from every Super+Alt shortcut, so instead the
+  -- key is sent again with Mod5 (level 3) held and the app looks the character
+  -- up in the active layout, dead keys included. Keys by keycode: number row
+  -- with § and the keys next to Backspace, then the three letter rows and <>.
+  if option("option_symbols", true) then
+    local codes = { 49, 94 }
+    for code = 10, 21 do codes[#codes + 1] = code end
+    for code = 24, 35 do codes[#codes + 1] = code end
+    for code = 38, 48 do codes[#codes + 1] = code end
+    for code = 51, 61 do codes[#codes + 1] = code end
+    for _, code in ipairs(codes) do
+      local key = "code:" .. code
+      bind("ALT + " .. key, "Option character", send("MOD5", key), REPEAT)
+      bind("ALT + SHIFT + " .. key, "Shift-Option character", send("MOD5 SHIFT", key), REPEAT)
+    end
   end
 
   -- ── 4. Windows and desktops ─────────────────────────────────────────────
